@@ -121,8 +121,8 @@ public class ChooseAreaFragment extends Fragment {
             listView.setSelection(0);
             currentLevel = LEVEL_CITY;
         }else {
-            int provinceId = selectedProvince.getProvinceCode();
-            String address = "http://guolin.tech/api/china/"+provinceId;
+            int provinceCode = selectedProvince.getProvinceCode();
+            String address = "http://guolin.tech/api/china/"+provinceCode;
             queryFromServer(address,"city");
         }
     }
@@ -131,10 +131,13 @@ public class ChooseAreaFragment extends Fragment {
         titleText.setText(selectedCity.getCityName());
         backButton.setVisibility(View.VISIBLE);
         countyList = LitePal.where("cityid = ?",String.valueOf(selectedCity.getId())).find(County.class);
+//        Log.d("ChooseAreaFragment","do queryCounties");
+
         if(countyList.size()>0){
             dataList.clear();
             for(County county : countyList){
                 dataList.add(county.getCountyName());
+//                Log.d("ChooseAreaFragment",county.getCountyName());
             }
             adapter.notifyDataSetChanged();
             listView.setSelection(0);
@@ -142,7 +145,7 @@ public class ChooseAreaFragment extends Fragment {
         }else{
             int provinceCode = selectedProvince.getProvinceCode();
             int cityCode = selectedCity.getCityCode();
-            String address = "http://guolin.tech/api/china"+provinceCode+"/"+cityCode;
+            String address = "http://guolin.tech/api/china/"+provinceCode+"/"+cityCode;
             queryFromServer(address,"county");
         }
     }
@@ -177,7 +180,7 @@ public class ChooseAreaFragment extends Fragment {
                         } else if ("city".equals(type)) {
                             queryCities();
                         } else if ("county".equals(type)) {
-                            queryCities();
+                            queryCounties();
                         }
                     });
                 }

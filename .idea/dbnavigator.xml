@@ -26,17 +26,19 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="34a93214-6e81-4dd5-a7ed-b36c4460f418">
-        <schema name="main" object-types="table, view" />
+        <schema name="main" object-types="table, view, constraint, index, column, dataset trigger" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="34a93214-6e81-4dd5-a7ed-b36c4460f418">
-      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[select * from province]]></console>
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[select * from county]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="34a93214-6e81-4dd5-a7ed-b36c4460f418" object-ref="consoles/Connection" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="34a93214-6e81-4dd5-a7ed-b36c4460f418" />
