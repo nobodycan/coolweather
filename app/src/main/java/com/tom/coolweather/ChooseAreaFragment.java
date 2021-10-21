@@ -187,7 +187,7 @@ public class ChooseAreaFragment extends Fragment {
                 } else if ("county".equals(type)) {
                     result = Utility.handleCountyResponse(responseText, selectedCity.getId());
                 }
-                if (result) {
+                if (!result) {
                     getActivity().runOnUiThread(() -> {
                         closeProgressDialog();
                         if ("province".equals(type)) {

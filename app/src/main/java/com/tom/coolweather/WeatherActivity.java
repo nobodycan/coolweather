@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -112,11 +113,14 @@ public class WeatherActivity extends AppCompatActivity {
 
         bingPicImg = findViewById(R.id.bing_pic_img);
         String bingPic = prefs.getString("bing_pic",null);
-        if(bingPic!=null){
-            Glide.with(this).load(bingPic).into(bingPicImg);
-        }else{
+        Log.d("WeatherActivity",weatherInfoText.getText().toString());
+
+//        if(bingPic!=null){
+//            Glide.with(this).load(bingPic).into(bingPicImg);
+//        }else{
             loadBingPic();
-        }
+//        }
+
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navButton = findViewById(R.id.nav_button);
@@ -146,6 +150,7 @@ public class WeatherActivity extends AppCompatActivity {
                         editor.putString("weather",responseText);
                         editor.apply();
                         showWeatherInfo(weather);
+                        loadBingPic();
                         Intent intent = new Intent(WeatherActivity.this, AutoUpdateService.class);
                         startService(intent);
                     }else{
@@ -155,10 +160,35 @@ public class WeatherActivity extends AppCompatActivity {
                 });
             }
         });
-        loadBingPic();
+//        loadBingPic();
+
     }
 
     private void loadBingPic(){
+        if("晴".equals(weatherInfoText.getText().toString())){
+            bingPicImg.setImageResource(R.drawable.qing);
+            return;
+        }else if("多云".equals(weatherInfoText.getText().toString())) {
+            bingPicImg.setImageResource(R.drawable.duoyun);
+            return;
+        }else if("雷阵雨".equals(weatherInfoText.getText().toString())){
+            bingPicImg.setImageResource(R.drawable.leizhenyu);
+            return;
+        }else if("小雨".equals(weatherInfoText.getText().toString())){
+            bingPicImg.setImageResource(R.drawable.xiaoyu);
+            return;
+        }else if("阵雨".equals(weatherInfoText.getText().toString())){
+            bingPicImg.setImageResource(R.drawable.zhenyu);
+            return;
+        }else if("中雨".equals(weatherInfoText.getText().toString())){
+            bingPicImg.setImageResource(R.drawable.zhongyu);
+            return;
+        }else if("阴".equals(weatherInfoText.getText().toString())){
+            bingPicImg.setImageResource(R.drawable.yin);
+            return;
+        }
+
+
         String requestBingPic = "http://guolin.tech/api/bing_pic";
         HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
             @Override
